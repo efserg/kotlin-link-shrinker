@@ -1,27 +1,46 @@
 package space.efremov.linkshrinker.services
 
+import org.junit.Assert.assertEquals
+import org.junit.Assert.assertNotEquals
+import org.junit.Before
 import org.junit.Test
-import org.junit.Assert.*
+import org.mockito.InjectMocks
+import org.mockito.Mock
+import org.mockito.Mockito
+import org.mockito.MockitoAnnotations
 
 class DefaultKeyMapperServiceTest {
 
+    @InjectMocks
     private val service: KeyMapperService = DefaultKeyMapperService()
 
-    private val KEY = "aAbBcCdD"
-    private val LINK = "http://www.eveonline.com"
-    private val LINK_NEW: String = "http://www.ru"
+    @Mock
+    lateinit var converter: KeyConverterService
 
-    @Test
-    fun clientCanAddNewKeyWithLink() {
-        assertEquals(KeyMapperService.Add.Success(KEY, LINK), service.add(KEY, LINK))
-        assertEquals(KeyMapperService.Get.Link(LINK), service.getLink(KEY))
+    @Before
+    fun init() {
+        MockitoAnnotations.initMocks(this)
+        Mockito.`when`(converter.keyToId(KEY_A)).thenReturn(ID_A)
+        Mockito.`when`(converter.idToKey(ID_A)).thenReturn(KEY_A)
+        Mockito.`when`(converter.keyToId(KEY_B)).thenReturn(ID_B)
+        Mockito.`when`(converter.idToKey(ID_B)).thenReturn(KEY_B)
     }
 
+    private val KEY = "aAbBcCdD"
+    private val LINK_A = "http://www.google.com"
+    private val LINK_B: String = "http://www.amazon.com"
+    private val KEY_A = "abc"
+    private val ID_A = 10_000_000L
+    private val KEY_B = "cde"
+    private val ID_B = 10_000_001L
+
     @Test
-    fun clientCannotAddExistKey() {
-        service.add(KEY, LINK)
-        assertEquals(KeyMapperService.Add.AlreadyExist(KEY), service.add(KEY, LINK_NEW))
-        assertEquals(KeyMapperService.Get.Link(LINK), service.getLink(KEY))
+    fun clientCannotAddLink() {
+        val keyA: String = service.add(LINK_A)
+        assertEquals(KeyMapperService.Get.Link(LINK_A), service.getLink(keyA))
+        val keyB: String = service.add(LINK_B)
+        assertEquals(KeyMapperService.Get.Link(LINK_B), service.getLink(keyB))
+        assertNotEquals(keyA, keyB)
     }
 
     @Test

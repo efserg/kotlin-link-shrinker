@@ -2,14 +2,9 @@ package space.efremov.linkshrinker.services
 
 interface KeyMapperService {
 
-    fun add(key: String, link: String): Add
+    fun add(link: String): String
 
     fun getLink(key: String): Get
-
-    interface Add {
-        data class Success(val key: String, val link: String) : Add
-        data class AlreadyExist(val key: String) : Add
-    }
 
     interface Get {
         data class Link(val link: String) : Get
