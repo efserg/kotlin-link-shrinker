@@ -6,8 +6,8 @@ import org.junit.Before
 import org.junit.Test
 import org.mockito.InjectMocks
 import org.mockito.Mock
-import org.mockito.Mockito
 import org.mockito.MockitoAnnotations
+import space.efremov.linkshrinker.whenever
 
 class DefaultKeyMapperServiceTest {
 
@@ -20,10 +20,10 @@ class DefaultKeyMapperServiceTest {
     @Before
     fun init() {
         MockitoAnnotations.initMocks(this)
-        Mockito.`when`(converter.keyToId(KEY_A)).thenReturn(ID_A)
-        Mockito.`when`(converter.idToKey(ID_A)).thenReturn(KEY_A)
-        Mockito.`when`(converter.keyToId(KEY_B)).thenReturn(ID_B)
-        Mockito.`when`(converter.idToKey(ID_B)).thenReturn(KEY_B)
+        whenever(converter.keyToId(KEY_A)).thenReturn(ID_A)
+        whenever(converter.idToKey(ID_A)).thenReturn(KEY_A)
+        whenever(converter.keyToId(KEY_B)).thenReturn(ID_B)
+        whenever(converter.idToKey(ID_B)).thenReturn(KEY_B)
     }
 
     private val KEY = "aAbBcCdD"
