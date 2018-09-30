@@ -10,6 +10,7 @@ buildscript {
         classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
         classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:${kotlinVersion}")
         classpath("org.jetbrains.kotlin:kotlin-allopen:${kotlinVersion}")
+        classpath "org.liquibase:liquibase-gradle-plugin:2.0.1"
     }
 }
 
@@ -18,6 +19,7 @@ apply plugin: 'kotlin-spring'
 apply plugin: 'eclipse'
 apply plugin: 'org.springframework.boot'
 apply plugin: 'io.spring.dependency-management'
+apply plugin: 'org.liquibase.gradle'
 
 group = 'space.efremov'
 version = '0.0.1-SNAPSHOT'
@@ -47,6 +49,8 @@ dependencies {
     compile('com.fasterxml.jackson.module:jackson-module-kotlin')
     compile("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
     compile("org.jetbrains.kotlin:kotlin-reflect")
+    compile('org.liquibase:liquibase-core')
+    compile('org.postgresql:postgresql')
     testCompile('org.dbunit:dbunit:2.5.4')
     testCompile('org.springframework.boot:spring-boot-starter-test')
     testCompile('com.github.springtestdbunit:spring-test-dbunit:1.3.0')
