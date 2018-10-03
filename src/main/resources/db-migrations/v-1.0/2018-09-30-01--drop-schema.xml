@@ -7,15 +7,15 @@
          http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.3.xsd">
 
     <changeSet author="efserg" id="dropLinkSequence">
-        <preConditions onFail="MARK_RAN">
+        <preConditions onFail="CONTINUE">
             <sequenceExists schemaName="public" sequenceName="link_seq"/>
         </preConditions>
         <dropSequence schemaName="public" sequenceName="link_seq"/>
     </changeSet>
 
     <changeSet author="efserg" id="dropLinkTable">
-        <preConditions onFail="MARK_RAN">
-            <tableExists schemaName="public" tableName="link_seq"/>
+        <preConditions onFail="CONTINUE">
+            <tableExists schemaName="public" tableName="links"/>
         </preConditions>
         <dropTable schemaName="public" tableName="links"/>
     </changeSet>

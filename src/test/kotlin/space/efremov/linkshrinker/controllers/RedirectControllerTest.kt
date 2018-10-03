@@ -13,6 +13,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner
 import org.springframework.test.context.web.WebAppConfiguration
 import org.springframework.test.web.servlet.MockMvc
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.header
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
 import org.springframework.test.web.servlet.setup.MockMvcBuilders
@@ -39,7 +40,7 @@ class RedirectControllerTest {
 
     @Autowired
     @InjectMocks
-    lateinit var controller: RequestController
+    lateinit var controller: RedirectController
 
     @Before
     fun init() {
@@ -69,4 +70,9 @@ class RedirectControllerTest {
                 .andExpect(status().`is`(SC_NOT_FOUND))
     }
 
+    @Test
+    fun homeWorkFine() {
+        mockMvc.perform(get("/"))
+                .andExpect(MockMvcResultMatchers.view().name("home"))
+    }
 }

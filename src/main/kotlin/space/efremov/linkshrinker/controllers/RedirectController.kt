@@ -2,19 +2,22 @@ package space.efremov.linkshrinker.controllers
 
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Controller
+import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.RequestMapping
 import space.efremov.linkshrinker.services.KeyMapperService
 import javax.servlet.http.HttpServletResponse
 
 @Controller
-@RequestMapping("/{key}")
-class RequestController {
+class RedirectController {
 
     @Autowired
     lateinit var service: KeyMapperService
 
-    @RequestMapping()
+    @GetMapping("/")
+    fun home() = "home"
+
+    @RequestMapping("{key}")
     fun redirect(@PathVariable("key") key: String, response: HttpServletResponse) {
        val result = service.getLink(key)
         when (result) {

@@ -15,6 +15,7 @@ import org.springframework.test.context.TestPropertySource
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner
 import org.springframework.test.context.web.WebAppConfiguration
 import org.springframework.test.web.servlet.MockMvc
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers
 import org.springframework.test.web.servlet.setup.MockMvcBuilders
@@ -63,4 +64,13 @@ class AddControllerTest {
 
     }
 
+    @Test
+    fun whenUserAddLinkByFormHeTakesWebPage() {
+        mockMvc.perform(MockMvcRequestBuilders.post("/addhtml")
+                .param("link", LINK)
+                .contentType(MediaType.APPLICATION_FORM_URLENCODED))
+                .andExpect(MockMvcResultMatchers.status().isOk)
+                .andExpect(MockMvcResultMatchers.content().string(Matchers.containsString(KEY)))
+                .andExpect(MockMvcResultMatchers.content().string(Matchers.containsString(LINK)))
+    }
 }
